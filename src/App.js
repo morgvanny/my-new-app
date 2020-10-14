@@ -1,43 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Counter from './Counter'
 
 function Welcome(props){
   return <h1>Hello, {props.name}</h1>;
 }
-
 class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+                  names: ["Sara", "Cahal", "Edite","Another"],
+                  showing: true,
+                }
+    this.toggleShowing = this.toggleShowing.bind(this)
+  }
 
+  componentWillUnmount(){
+    this.interval.clear()
+  }
 
-  state = {
-      names: ["Sara", "Cahal", "Edite","Another"]
-    }
-
-
+  toggleShowing(){
+    this.setState((state) => ({showing: !state.showing}))
+  }
 
   render() {
-
-  const variable = "Hi!"
-  return (
-    <div className="App">
-      <header className="App-header">
-      <h1>{variable}</h1>
-      {this.state.names.map(name => <Welcome name={name}/>)}
-        <p>
-           <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const welcomes = this.state.names.map(name => <Welcome key={name} name={name}/>)
+    return (
+      <div className="App">
+        <header className="App-header">
+        <button onClick={this.toggleShowing}>{this.state.showing ? "Hide" : "Show"}</button>
+        {welcomes}
+        {this.state.showing ? <Counter /> : null }
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
