@@ -1,36 +1,74 @@
-import React from 'react';
-import './App.css';
-import Counter from './Counter'
+import React from "react";
+import "./App.css";
+import Counter from "./Counter";
 
-function Welcome(props){
+function Welcome(props) {
+  console.log("Welcome rendered");
   return <h1>Hello, {props.name}</h1>;
 }
+
 class App extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-                  names: ["Sara", "Cahal", "Edite","Another"],
-                  showing: true,
-                }
-    this.toggleShowing = this.toggleShowing.bind(this)
-  }
+  state = {
+    names: ["Morgan", "Bryce"],
+    firstName: "",
+    lastName: "",
+    showing: true,
+  };
 
-  componentWillUnmount(){
-    this.interval.clear()
-  }
+  toggleShowing = () => {
+    this.setState((state) => ({ showing: !state.showing }));
+  };
 
-  toggleShowing(){
-    this.setState((state) => ({showing: !state.showing}))
-  }
+  addName = (e) => {
+    e.preventDefault();
+    this.setState((state) => ({
+      names: [...state.names, state.newName],
+      newName: "",
+    }));
+  };
+
+  changeNameField = (e) => {
+    let nameStr = "";
+    if (e.target.value.length > 0) {
+      nameStr = e.target.value[0].toUpperCase() + e.target.value.slice(1);
+    }
+    this.setState({ [e.target.name]: nameStr });
+  };
 
   render() {
-    const welcomes = this.state.names.map(name => <Welcome key={name} name={name}/>)
+    console.log("App rendered");
+    const welcomes = this.state.names.map((name) => (
+      <Welcome key={name} name={name} />
+    ));
+
     return (
       <div className="App">
         <header className="App-header">
-        <button onClick={this.toggleShowing}>{this.state.showing ? "Hide" : "Show"}</button>
-        {welcomes}
-        {this.state.showing ? <Counter /> : null }
+          <button onClick={this.toggleShowing}>
+            {this.state.showing ? "Hide" : "Show"}
+          </button>
+          {welcomes}
+          <form onSubmit={this.addName}>
+            <label>
+              First Name:
+              <input
+                onChange={this.changeNameField}
+                name="firstName"
+                value={this.state.firstName}
+              />
+            </label>
+            <label>
+              Last Name:
+              <input
+                onChange={this.changeNameField}
+                name="lastName"
+                value={this.state.lastName}
+              />
+            </label>
+            <input type="submit" />
+          </form>
+          {this.state.showing ? <Counter /> : null}
+          <p>Age: {this.props.age}</p>
           <a
             className="App-link"
             href="https://reactjs.org"
