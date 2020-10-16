@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import Counter from "./Counter";
+import Goodbye from "./Goodbye";
 
 function Welcome(props) {
   console.log("Welcome rendered");
   return <h1>Hello, {props.name}</h1>;
 }
-
 class App extends React.Component {
   state = {
     names: ["Morgan", "Bryce"],
@@ -77,6 +77,7 @@ class App extends React.Component {
           >
             Learn React
           </a>
+          <Goodbye name={"BJ"} />
         </header>
       </div>
     );
