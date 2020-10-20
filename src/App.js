@@ -1,7 +1,9 @@
 import React from "react";
+import Button from "./Button";
 import "./App.css";
 import Counter from "./Counter";
 import Goodbye from "./Goodbye";
+import PokemonContainer from "./PokemonContainer";
 
 function Welcome(props) {
   console.log("Welcome rendered");
@@ -44,6 +46,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <Button />
+
+          <PokemonContainer />
+
           <button onClick={this.toggleShowing}>
             {this.state.showing ? "Hide" : "Show"}
           </button>

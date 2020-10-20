@@ -15,7 +15,7 @@ export default class Counter extends React.Component {
   }
 
   render() {
-    console.log("Counter rendered");
+    // console.log("Counter rendered");
     return <p>Count: {this.state.num}</p>;
   }
 }
